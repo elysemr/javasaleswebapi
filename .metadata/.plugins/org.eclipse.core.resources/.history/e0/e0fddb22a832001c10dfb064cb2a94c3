@@ -1,0 +1,29 @@
+package com.maxtrain.practiceWithJava;
+
+public class JavaPractice {
+
+	public static void main(String[] args) {
+	
+		var total = 0;
+		
+		for(int idx = 0; idx <=75; idx++)
+		{
+			if(calcModulo(idx, 3) == 0 || calcModulo(idx, 7) == 0);
+		
+			{
+			total = total + idx;
+			}
+		}
+		
+		System.out.print(total + ", ");
+		
+				
+	}
+
+
+	private static int calcModulo(int idx, int i) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
