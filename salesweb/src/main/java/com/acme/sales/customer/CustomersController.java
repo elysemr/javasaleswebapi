@@ -74,6 +74,15 @@ public class CustomersController {
 		//customer.get();
 	}
 	
+	@GetMapping("{code}/{name}") //models our login method in capstone
+	public ResponseEntity<Customer> GetByCodeAndName(@PathVariable String code, @PathVariable String name) {
+		var customer = custRepo.findByCodeAndName(code, name);
+		if(customer.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+	}
+	
 	
 
 }

@@ -66,5 +66,38 @@ public class OrdersController {
 		ordRepo.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	@GetMapping("customer/{customerId}") //need to differentiate between getbyId
+	public ResponseEntity<Iterable<Order>> GetOrderNotCustomer(@PathVariable int customerId) { //going to bring back a collection of 0+
+																							//method name can be whatever you want
+		var orders = ordRepo.findByCustomerIdNot(customerId);
+		return new ResponseEntity<Iterable<Order>>(orders, HttpStatus.OK);
+		//don't need "if doesn't exist" scenario because it's exclusionary so if user doesn't exist
+		//then it will just return all the orders and not exclude any
+	}
+	
+	//like set request to review, set order back to 0
+	@PutMapping("review/{id}")
+	public ResponseEntity SetOrderToZero(@PathVariable int id, @RequestBody Order order) {
+		var newTotal = order.getTotal() <= 100 ? 0 : 1000;
+		order.setTotal(newTotal);
+		return Update(id, order);
+	}
+	
+	//like set to approved
+	@PutMapping("approve/{id}") 
+	public ResponseEntity SetOrderTo5000(@PathVariable int id, @RequestBody Order order) {
+		order.setTotal(5000);
+		return Update(id, order);
+	}
+	
+	//like set to reject
+	@PutMapping("reject/{id}")
+	public ResponseEntity SetOrderToNetative5000(@PathVariable int id, @RequestBody Order order) {
+		order.setTotal(-5000);
+		return Update(id, order);
+	}
+	
+	
 
 }
